@@ -1,6 +1,8 @@
-services:
-    - docker
+sudo: required
 
-    script: 
-      - bash scripts/runTests.sh
-      - bash scripts/pushImage.sh
+services:
+  - docker
+
+script: 
+  - bash scripts/runTests.sh
+  - bash scripts/pushImage.sh
