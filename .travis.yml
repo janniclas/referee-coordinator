@@ -1,4 +1,6 @@
 services:
     - docker
 
-    script: bash scripts/runTests.sh
+    script: 
+      - bash scripts/runTests.sh
+      - bash scripts/pushImage.sh
