@@ -4,8 +4,8 @@ services:
   - docker
 
 script: 
-  - bash ./runTests.sh
-  - bash ./pushImage.sh
+  - bash ./scripts/runTests.sh
+  - bash ./scripts/pushImage.sh
 
 # deploy:
 #   provider: script
