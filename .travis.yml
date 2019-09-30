@@ -1,8 +1,13 @@
-sudo: required
+language: ruby
 
 services:
   - docker
 
 script: 
   - bash ./runTests.sh
-  - bash ./pushImage.sh
+
+# deploy: 
+#  provider: script
+#   script: bash ./pushImage.sh
+#   on:
+#     branch: master

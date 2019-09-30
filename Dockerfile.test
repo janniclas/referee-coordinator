@@ -14,4 +14,3 @@ RUN npm install react-scripts@3.0.1 -g
 COPY . .
 RUN npm run build
 # test referee-coordinator
-CMD ["npm", "test"]
