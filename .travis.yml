@@ -6,8 +6,8 @@ services:
 script: 
   - bash ./runTests.sh
 
-# deploy: 
-#  provider: script
-#   script: bash ./pushImage.sh
-#   on:
-#     branch: master
+deploy: 
+ provider: script
+  script: bash ./pushImage.sh
+  on:
+    branch: master
