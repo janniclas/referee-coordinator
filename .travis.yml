@@ -4,11 +4,10 @@ services:
   - docker
 
 script: 
-  - bash ./runTests.sh
-  - bash ./pushImage.sh
+  - bash ./scripts/buildDocker.sh
 
-# deploy:
-#   provider: script
-#   script: bash ./pushImage.sh
-#   on: 
-#     branch: master
+deploy:
+  provider: script
+  script: bash ./scripts/pushImage.sh
+  on: 
+    branch: master
