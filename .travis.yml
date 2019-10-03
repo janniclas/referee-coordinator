@@ -10,4 +10,4 @@ deploy:
   provider: script
   script: bash ./scripts/pushImage.sh
   on: 
-    branch: master
+    branch: feature/travisSupport
