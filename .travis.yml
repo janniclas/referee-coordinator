@@ -10,5 +10,4 @@ deploy:
   provider: script
   script: bash ./scripts/pushImage.sh
   on: 
-    tags: true
     branch: master
