@@ -4,8 +4,7 @@ services:
   - docker
 
 script: 
-  - bash ./scripts/runTests.sh
-  - bash ./scripts/createProd.sh
+  - bash ./scripts/buildDocker.sh
 
 deploy:
   provider: script
