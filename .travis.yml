@@ -5,6 +5,7 @@ services:
 
 script: 
   - bash ./scripts/runTests.sh
+  - bash ./scripts/createProd.sh
 
 deploy:
   provider: script
