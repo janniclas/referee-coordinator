@@ -12,7 +12,7 @@ COPY package.json /referee-coordinator/package.json
 COPY yarn.lock /referee-coordinator/yarn.lock
 
 RUN yarn install
-RUN yarn install react-scripts@3.0.1 -g
+RUN yarn global add react-scripts@3.0.1
 COPY . .
 
 RUN npm test
