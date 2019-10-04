@@ -9,8 +9,10 @@ ENV PATH /referee-coordinator/node_modules/.bin:$PATH
 ENV CI true
 # install and cache referee-coordinator dependencies
 COPY package.json /referee-coordinator/package.json
-RUN npm install
-RUN npm install react-scripts@3.0.1 -g
+COPY yarn.lock /referee-coordinator/yarn.lock
+
+RUN yarn install
+RUN yarn install react-scripts@3.0.1 -g
 COPY . .
 
 RUN npm test
