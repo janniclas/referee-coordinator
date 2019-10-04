@@ -5,10 +5,10 @@ import NameInput from './NameInput';
 // automatically unmount and cleanup DOM after the test is finished.
 afterEach(cleanup);
 
+
 it('Enabled Name Input', () => {
-  
   const {getByDisplayValue} = render(
-    <NameInput editable={true} name={'TestName'} />,
+    <NameInput handleNameChange={(name: string) => {}} name={'TestName'} />,
   );
     getByDisplayValue('TestName');
 });
@@ -16,7 +16,7 @@ it('Enabled Name Input', () => {
 it('Disabled Name Input', () => {
   
     const {getByDisplayValue} = render(
-      <NameInput editable={false} name={'TestName'} />,
+      <NameInput name={'TestName'} />,
     );
        const textField = getByDisplayValue('TestName');
        expect(textField.getAttributeNames().includes('disabled')).toBeTruthy();

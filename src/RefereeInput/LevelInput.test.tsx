@@ -9,7 +9,7 @@ afterEach(cleanup);
 it('Displays R1 correctly', () => {
   
   const {getByDisplayValue} = render(
-    <LevelInput editable={true} level={Level.R1} />,
+    <LevelInput handleLevelChange={(level: Level) => {}} level={Level.R1} />,
   );
   getByDisplayValue("R1");
 });
@@ -17,7 +17,7 @@ it('Displays R1 correctly', () => {
 it('Displays R2 correctly', () => {
   
   const {getByDisplayValue} = render(
-    <LevelInput editable={false} level={Level.R2} />,
+    <LevelInput level={Level.R2} />,
   );
   getByDisplayValue("R2");
 });

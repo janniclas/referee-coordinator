@@ -12,26 +12,22 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const NameInput = (props: {editable: boolean, name: string}) => {
+const NameInput = (props: {handleNameChange?: (name: string) => void, name: string}) => {
 
   const classes = useStyles();
 
-  const [name, setName] = React.useState<string>(
-   props.name,
-  );
-
   const handleChangeText = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
+    if(props.handleNameChange)
+     props.handleNameChange(event.target.value);
   };
 
-
   return (
-    props.editable ?
+    props.handleNameChange ?
       <TextField
         id='outlined-name'
         label='Name'
         className={classes.textField}
-        value={name}
+        value={props.name}
         onChange={handleChangeText}
         margin='normal'
         variant='outlined'
@@ -42,7 +38,7 @@ const NameInput = (props: {editable: boolean, name: string}) => {
       id='outlined-name'
       label='Name'
       className={classes.textField}
-      value={name}
+      value={props.name}
       margin='normal'
       variant='outlined'
     />

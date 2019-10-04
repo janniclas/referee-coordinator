@@ -15,16 +15,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 
-const LevelInput = (props: {editable: boolean, level: Level}) => {
+const LevelInput = (props: {handleLevelChange?: (level: Level) => void, level: Level}) => {
 
-  const [level, setLevel] = React.useState<Level>(
-   props.level,
-  );
-  
   const classes = useStyles();
 
   const handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-    setLevel(event.target.value as Level);
+    if(props.handleLevelChange)
+     props.handleLevelChange(event.target.value as Level);
   };
 
 
@@ -32,7 +29,7 @@ const LevelInput = (props: {editable: boolean, level: Level}) => {
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="level">Level</InputLabel>
         <Select
-          value={level}
+          value={props.level}
           onChange={handleChange}
           inputProps={{
             level: Level.R1,
