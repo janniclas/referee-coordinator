@@ -3,18 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import LevelInput from './LevelInput';
 import NameInput from './NameInput';
 import { Button } from '@material-ui/core';
-
-export enum Level {
-    R1 = 'R1',
-    R2 = 'R2',
-    R3 = 'R3',
-    R4 = 'R4'
-  }
-
-export interface Referee {
-  name: string,
-  level: Level
-}
+import {Referee, Level} from '../store/store';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
