@@ -11,7 +11,7 @@ export enum Level {
     R4 = 'R4'
   }
 
-interface Referee {
+export interface Referee {
   name: string,
   level: Level
 }
@@ -30,29 +30,33 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const RefereeInput = () => {
 
-const classes = useStyles();
+  const classes = useStyles();
 
-const [ref, setRef] = React.useState<Referee>(
-  {
-    name: '',
-    level: Level.R1
+  const [ref, setRef] = React.useState<Referee>(
+    {
+      name: '',
+      level: Level.R1
+    }
+  );
+
+  const handleNameChange = (name: string) => {
+    setRef({name: name, level: ref.level});
   }
- );
 
- const handleNameChange = (name: string) => {
-  setRef({name: name, level: ref.level});
- }
+  const handleLevelChange = (level: Level) => {
+    setRef({name: ref.name, level: level});
+  }
 
- const handleLevelChange = (level: Level) => {
-  setRef({name: ref.name, level: level});
-}
+  const submit = () => {
+    console.log('submitted');
+  }
 
   return (
     <form className={classes.container} noValidate autoComplete='off'>
       <NameInput handleNameChange={handleNameChange} name={ref.name}/>
       <LevelInput handleLevelChange={handleLevelChange} level={ref.level}/>
-      <Button variant="contained" className={classes.button}>
-        Default
+      <Button variant="contained" className={classes.button} onClick={submit}>
+        Save
       </Button>
     </form>
   );
