@@ -13,8 +13,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-
-
 const LevelInput = (props: {handleLevelChange?: (level: Level) => void, level: Level}) => {
 
   const classes = useStyles();

@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import LevelInput from './LevelInput';
 import NameInput from './NameInput';
 import { Button } from '@material-ui/core';
-import {Referee, Level} from '../store/store';
+import {Referee, Level} from '../store/refereeReducer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

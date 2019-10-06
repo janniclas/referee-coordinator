@@ -1,21 +1,8 @@
-import {observable} from 'mobx';
+import { refereeReducer } from './refereeReducer'
+import {combineReducers} from 'redux'
 
-
-export enum Level {
-    R1 = 'R1',
-    R2 = 'R2',
-    R3 = 'R3',
-    R4 = 'R4'
-  }
-
-export interface Referee {
-    name: string,
-    level: Level
-}
-
-export interface State {
-    referees: Array<Referee>
-}
-export const appState = observable<State>({
-    referees: []
-});
+const rootReducer = combineReducers({
+    referee: refereeReducer
+  })
+  
+export type AppState = ReturnType<typeof rootReducer>
