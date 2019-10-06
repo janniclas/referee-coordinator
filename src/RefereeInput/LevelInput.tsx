@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-import { Level } from '../store/store';
+import { Level } from '../store/refereeReducer';
 
 
 const useStyles = makeStyles((theme: Theme) =>
