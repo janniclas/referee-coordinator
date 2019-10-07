@@ -3,18 +3,10 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import LevelInput from './LevelInput';
 import NameInput from './NameInput';
 import { Button } from '@material-ui/core';
-
-export enum Level {
-    R1 = 'R1',
-    R2 = 'R2',
-    R3 = 'R3',
-    R4 = 'R4'
-  }
-
-interface Referee {
-  name: string,
-  level: Level
-}
+import {Referee, Level} from '../store/refereeReducer';
+import { addReferee } from '../store/refereeActions';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,34 +20,52 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const RefereeInput = () => {
-
-const classes = useStyles();
-
-const [ref, setRef] = React.useState<Referee>(
-  {
-    name: '',
-    level: Level.R1
-  }
- );
-
- const handleNameChange = (name: string) => {
-  setRef({name: name, level: ref.level});
- }
-
- const handleLevelChange = (level: Level) => {
-  setRef({name: ref.name, level: level});
+interface RefInputProps {
+  saveRef: typeof addReferee
 }
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    saveRef: (ref: Referee) => dispatch(addReferee(ref))
+  }
+}
+
+const emptyRef = {
+  id: 'tmp',
+  name: '',
+  level: Level.R1
+};
+
+const RefereeInput = (props: RefInputProps) => {
+
+  const classes = useStyles();
+
+  const [ref, setRef] = React.useState<Referee>(
+    emptyRef
+  );
+
+  const handleNameChange = (name: string) => {
+    setRef({id: ref.id, name: name, level: ref.level});
+  }
+
+  const handleLevelChange = (level: Level) => {
+    setRef({id: ref.id, name: ref.name, level: level});
+  }
+
+  const submit = () => {
+    // TODO: set id before submitting
+    props.saveRef(ref);
+    setRef(emptyRef);
+  }
 
   return (
     <form className={classes.container} noValidate autoComplete='off'>
       <NameInput handleNameChange={handleNameChange} name={ref.name}/>
       <LevelInput handleLevelChange={handleLevelChange} level={ref.level}/>
-      <Button variant="contained" className={classes.button}>
-        Default
+      <Button variant="contained" className={classes.button} onClick={submit}>
+        Save
       </Button>
     </form>
   );
 }
-
-export default RefereeInput;
+const refInput = connect(null, mapDispatchToProps) (RefereeInput);
+export default refInput;

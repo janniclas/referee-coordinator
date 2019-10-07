@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
-import { Level } from './RefereeInput';
+import { Level } from '../store/refereeReducer';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -12,8 +12,6 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   }),
 );
-
-
 
 const LevelInput = (props: {handleLevelChange?: (level: Level) => void, level: Level}) => {
 

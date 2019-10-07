@@ -1,7 +1,7 @@
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
 import LevelInput from './LevelInput';
-import { Level } from './RefereeInput';
+import {Level} from '../store/refereeReducer';
 
 // automatically unmount and cleanup DOM after the test is finished.
 afterEach(cleanup);
