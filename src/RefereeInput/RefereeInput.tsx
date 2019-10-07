@@ -53,6 +53,7 @@ const RefereeInput = (props: RefInputProps) => {
 
   const submit = () => {
     // TODO: set id before submitting
+    ref.id = '' + Math.random();
     props.saveRef(ref);
     setRef(emptyRef);
   }
