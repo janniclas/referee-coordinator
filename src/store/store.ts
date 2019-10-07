@@ -1,7 +1,7 @@
 import { refereeReducer } from './refereeReducer'
 import {combineReducers} from 'redux'
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
     referee: refereeReducer
   })
   

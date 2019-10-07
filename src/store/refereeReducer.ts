@@ -1,4 +1,4 @@
-import { RefereeAction, ADD_REFEREE } from './refereeActions';
+import { RefereeAction, ADD_REFEREE, DELETE_REFEREE, EDIT_REFEREE } from './refereeActions';
 
 
 export enum Level {
@@ -9,26 +9,50 @@ export enum Level {
   }
 
 export interface Referee {
+    id: string,
     name: string,
     level: Level
 }
 
 export interface RefereeState {
-    referees: Array<Referee>
+    referees: {[id: string]: Referee},
+    refereeIds: Array<string>
 }
 
 const initialState: RefereeState = {
-    referees: []
+    referees: {},
+    refereeIds: []
 };
 
 export function refereeReducer(state = initialState, action: RefereeAction): RefereeState {
 
+    const copiedRefs = Object.assign({}, state.referees);
+
     switch(action.type) {
+
         case ADD_REFEREE: 
+            copiedRefs[action.payload.id] = action.payload;
             return {
-                referees: [...state.referees, action.payload]
+                refereeIds: [...state.refereeIds, action.payload.id],
+                referees: copiedRefs
+            };
+        case DELETE_REFEREE: 
+            delete copiedRefs[action.payload.id];
+            return {
+                refereeIds: state.refereeIds.filter(tmpId => 
+                    action.payload.id !== tmpId
+                ),
+                referees: copiedRefs
+                };
+        case EDIT_REFEREE: 
+            copiedRefs[action.payload.id] = action.payload;   
+            return {
+                refereeIds: state.refereeIds,
+                referees: copiedRefs
             };
         default:
             return state;
     }
+
   }
+

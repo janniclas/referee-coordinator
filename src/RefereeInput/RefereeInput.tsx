@@ -4,6 +4,9 @@ import LevelInput from './LevelInput';
 import NameInput from './NameInput';
 import { Button } from '@material-ui/core';
 import {Referee, Level} from '../store/refereeReducer';
+import { addReferee } from '../store/refereeActions';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,27 +20,41 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const RefereeInput = () => {
+interface RefInputProps {
+  saveRef: typeof addReferee
+}
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    saveRef: (ref: Referee) => dispatch(addReferee(ref))
+  }
+}
+
+const emptyRef = {
+  id: 'tmp',
+  name: '',
+  level: Level.R1
+};
+
+const RefereeInput = (props: RefInputProps) => {
 
   const classes = useStyles();
 
   const [ref, setRef] = React.useState<Referee>(
-    {
-      name: '',
-      level: Level.R1
-    }
+    emptyRef
   );
 
   const handleNameChange = (name: string) => {
-    setRef({name: name, level: ref.level});
+    setRef({id: ref.id, name: name, level: ref.level});
   }
 
   const handleLevelChange = (level: Level) => {
-    setRef({name: ref.name, level: level});
+    setRef({id: ref.id, name: ref.name, level: level});
   }
 
   const submit = () => {
-    console.log('submitted');
+    // TODO: set id before submitting
+    props.saveRef(ref);
+    setRef(emptyRef);
   }
 
   return (
@@ -50,5 +67,5 @@ const RefereeInput = () => {
     </form>
   );
 }
-
-export default RefereeInput;
+const refInput = connect(null, mapDispatchToProps) (RefereeInput);
+export default refInput;
