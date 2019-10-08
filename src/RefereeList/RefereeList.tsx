@@ -1,9 +1,9 @@
 import React from 'react';
 import { AppState } from '../store/store';
 import { connect } from 'react-redux';
-import { RefereeState } from '../store/refereeReducer';
 import { makeStyles, Theme, createStyles, List } from '@material-ui/core';
 import RefereeListItem  from './RefereeListItem';
+import { RefereeState } from '../types/referee';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: AppState): RefereeState => {
     return {
-        referees: state.referee.referees,
-        refereeIds: state.referee.refereeIds
+        referees: state.referee.objects,
+        refereeIds: state.referee.objectIds
     }
 }
 
