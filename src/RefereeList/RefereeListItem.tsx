@@ -22,11 +22,8 @@ const RefereeListItem = (props: {referee: Referee}) => {
         props.referee ? 
         <ListItem key={props.referee.id}>
             <ListItemText>
-                <NameInput name={props.referee.name}></NameInput>
+                {props.referee.name} {props.referee.level}
             </ListItemText>
-            <ListItemSecondaryAction>
-                <LevelInput level={props.referee.level}></LevelInput>
-            </ListItemSecondaryAction>
         </ListItem>
         : 
         <div></div>
