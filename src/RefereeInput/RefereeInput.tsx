@@ -52,7 +52,8 @@ const RefereeInput = (props: RefInputProps) => {
   }
 
   const submit = () => {
-    // TODO: set id before submitting
+    //TODO: this should be improved
+    ref.id = '' + Math.random();
     props.saveRef(ref);
     setRef(emptyRef);
   }
@@ -62,7 +63,7 @@ const RefereeInput = (props: RefInputProps) => {
       <NameInput handleNameChange={handleNameChange} name={ref.name}/>
       <LevelInput handleLevelChange={handleLevelChange} level={ref.level}/>
       <Button variant="contained" className={classes.button} onClick={submit}>
-        Save
+        Add
       </Button>
     </form>
   );
