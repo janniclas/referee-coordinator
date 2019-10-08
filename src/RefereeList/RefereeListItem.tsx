@@ -1,6 +1,6 @@
 import React from 'react';
-import { Referee } from '../store/refereeReducer';
 import { ListItem, ListItemText } from '@material-ui/core';
+import { Referee } from '../types/referee';
 
 
 const RefereeListItem = (props: {referee: Referee}) => {
