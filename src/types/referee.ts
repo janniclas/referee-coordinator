@@ -1,5 +1,6 @@
 import { MetaInfo } from "../store/objectReducer";
 
+export const REF = "REF_IDENT";
 export enum Level {
     R1 = 'R1',
     R2 = 'R2',

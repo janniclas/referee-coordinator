@@ -21,12 +21,12 @@ const createInitialState = <T extends MetaInfo>(): ObjectState<T>  =>{
 }
 
 export function objectReducer<T extends MetaInfo>(state = createInitialState<T>(), action: ObjectAction<T>): ObjectState<T> {
-
     const copiedObjects = Object.assign({}, state.objects);
 
     switch(action.type) {
 
         case ADD: 
+
             copiedObjects[action.payload.id] = action.payload;
             return {
                 objectIds: [...state.objectIds, action.payload.id],

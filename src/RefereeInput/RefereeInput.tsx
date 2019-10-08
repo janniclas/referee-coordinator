@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { addObject, ObjectAction } from '../store/objectActions';
-import { Referee, Level } from '../types/referee';
+import { Referee, Level, REF } from '../types/referee';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,7 +34,7 @@ const emptyRef = {
   id: 'tmp',
   name: '',
   level: Level.R1,
-  type: 'ref'
+  type: REF
 };
 
 const RefereeInput = (props: RefInputProps) => {
