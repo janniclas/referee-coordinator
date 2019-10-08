@@ -2,7 +2,8 @@ import React from 'react';
 import { AppState } from '../store/store';
 import { connect } from 'react-redux';
 import { RefereeState } from '../store/refereeReducer';
-import { makeStyles, Theme, createStyles, List, ListItem } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, List } from '@material-ui/core';
+import RefereeListItem  from './RefereeListItem';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,9 +30,7 @@ const RefereeList = (props: RefereeState) => {
             {
                 props.refereeIds.map((id) => {
                     return (
-                        <ListItem key={id}>
-                            {id}
-                        </ListItem>
+                        <RefereeListItem key={id} referee={props.referees[id]}></RefereeListItem>
                     )
                 })
             }
