@@ -1,7 +1,8 @@
 import { ObjectAction, ADD, DELETE, EDIT } from './objectActions';
+import { ObjectTypes } from '../types/types';
 
 
-export interface ObjectState<T extends MetaInfo> {
+export interface ObjectState<T extends ObjectTypes> {
     objects: {[id: string]: T},
     objectIds: Array<string>
 }
@@ -13,14 +14,14 @@ export interface MetaInfo {
 }
 
 
-const createInitialState = <T extends MetaInfo>(): ObjectState<T>  =>{
+const createInitialState = <T extends ObjectTypes>(): ObjectState<T>  => {
     return {
         objects: {},
         objectIds: []
     }
 }
 
-export function objectReducer<T extends MetaInfo>(state = createInitialState<T>(), action: ObjectAction<T>): ObjectState<T> {
+export function objectReducer<T extends ObjectTypes> (state = createInitialState<T>(), action: ObjectAction<T>): ObjectState<T> {
     const copiedObjects = Object.assign({}, state.objects);
 
     switch(action.type) {

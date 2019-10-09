@@ -1,9 +1,10 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles, List } from '@material-ui/core';
-import { ObjectState, MetaInfo } from '../store/objectReducer';
+import { ObjectState } from '../store/objectReducer';
 import ObjectListItem from './ObjectListItem';
 import { connect } from 'react-redux';
 import { AppState } from '../store/store';
+import { ObjectTypes } from '../types/types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,10 +23,10 @@ const mapStateToPropsRef = (state: AppState) => ({
 
 const mapStateToPropsTeam = (state: AppState) => ({
   objects: state.team.objects,
-  objectIds: state.referee.objectIds
+  objectIds: state.team.objectIds
 })
 
-const objectList = <T extends MetaInfo>(props: ObjectState<T>) => {
+const ObjectList = (props: ObjectState<ObjectTypes>) => {
     
   const classes = useStyles();
 
@@ -42,5 +43,5 @@ const objectList = <T extends MetaInfo>(props: ObjectState<T>) => {
     );
 }
 
-export const RefereeList = connect(mapStateToPropsRef)(objectList) 
-export const TeamList = connect(mapStateToPropsTeam)(objectList) 
+export const RefereeList = connect(mapStateToPropsRef)(ObjectList) 
+export const TeamList = connect(mapStateToPropsTeam)(ObjectList) 
