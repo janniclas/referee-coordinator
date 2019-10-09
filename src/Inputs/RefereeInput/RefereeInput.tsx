@@ -1,12 +1,12 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import LevelInput from './LevelInput';
-import NameInput from './NameInput';
+import TextInput from './../TextInput';
 import { Button } from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { addObject, ObjectAction } from '../store/objectActions';
-import { Referee, Level, REF } from '../types/referee';
+import { addObject, ObjectAction } from '../../store/objectActions';
+import { Referee, Level, REF } from '../../types/referee';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,7 +62,7 @@ const RefereeInput = (props: RefInputProps) => {
 
   return (
     <form className={classes.container} noValidate autoComplete='off'>
-      <NameInput handleNameChange={handleNameChange} name={ref.name}/>
+      <TextInput title={'Name'} handleTextChange={handleNameChange} value={ref.name}/>
       <LevelInput handleLevelChange={handleLevelChange} level={ref.level}/>
       <Button variant="contained" className={classes.button} onClick={submit}>
         Add

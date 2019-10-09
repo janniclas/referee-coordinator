@@ -1,6 +1,6 @@
 import React from 'react';
 import {cleanup, render} from '@testing-library/react';
-import NameInput from './NameInput';
+import TextInput from '../TextInput';
 
 // automatically unmount and cleanup DOM after the test is finished.
 afterEach(cleanup);
@@ -8,7 +8,7 @@ afterEach(cleanup);
 
 it('Enabled Name Input', () => {
   const {getByDisplayValue} = render(
-    <NameInput handleNameChange={(name: string) => {}} name={'TestName'} />,
+    <TextInput title={'Name'} handleTextChange={(name: string) => {}} value={'TestName'} />,
   );
     getByDisplayValue('TestName');
 });
@@ -16,7 +16,7 @@ it('Enabled Name Input', () => {
 it('Disabled Name Input', () => {
   
     const {getByDisplayValue} = render(
-      <NameInput name={'TestName'} />,
+      <TextInput title={'Name'} value={'TestName'} />,
     );
        const textField = getByDisplayValue('TestName');
        expect(textField.getAttributeNames().includes('disabled')).toBeTruthy();

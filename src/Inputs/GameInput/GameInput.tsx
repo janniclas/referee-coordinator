@@ -3,8 +3,9 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { addObject, ObjectAction } from '../store/objectActions';
-import { Game, GAME } from '../types/game';
+import { addObject, ObjectAction } from '../../store/objectActions';
+import { Game, GAME } from '../../types/game';
+import TextInput from '../TextInput';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -46,13 +47,9 @@ const GameInput = (props: GameInputProps) => {
     emptyGame
   );
 
-//   const handleNameChange = (name: string) => {
-//     setGame({id: Game.id, name: name, level: Game.level, type: Game.type});
-//   }
-
-//   const handleLevelChange = (level: Level) => {
-//     setGame({id: Game.id, name: Game.name, level: level, type: Game.type});
-//   }
+  const handleNameChange = (name: string) => {
+   
+  }
 
   const submit = () => {
     //TODO: this should be improved
@@ -63,6 +60,7 @@ const GameInput = (props: GameInputProps) => {
 
   return (
     <form className={classes.container} noValidate autoComplete='off'>
+      <TextInput value={''} handleTextChange={handleNameChange} title={'Team Name'}></TextInput>
       <Button variant="contained" className={classes.button} onClick={submit}>
         Add
       </Button>
