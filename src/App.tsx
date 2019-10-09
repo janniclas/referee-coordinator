@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import { ObjectState } from './store/objectReducer';
 import { Referee } from './types/referee';
 import GameInput from './Inputs/TeamInput/TeamInput';
-import ObjectList from './ObjectList/ObjectList';
 import { Team } from './types/team';
+import { RefereeList, TeamList } from './ObjectList/ObjectList';
 
 interface AppProps {
   referees: ObjectState<Referee>
@@ -19,14 +19,12 @@ const mapStateToProps = (state: AppState) => ({
 })
 
 const App: React.FC<AppProps> = (props: AppProps) => {
-  const teamList = ObjectList<Team>(props.teams);
-  const refList = ObjectList<Referee>(props.referees);
   return (
     <div className="App">
       <RefereeInput></RefereeInput>
-      {refList}
+      <RefereeList/>
       <GameInput></GameInput>
-      {teamList}
+      <TeamList/>
     </div>
   );
 }

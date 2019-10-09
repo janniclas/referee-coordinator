@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles, Theme, createStyles, List } from '@material-ui/core';
 import { ObjectState, MetaInfo } from '../store/objectReducer';
 import ObjectListItem from './ObjectListItem';
+import { connect } from 'react-redux';
+import { AppState } from '../store/store';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,9 +15,19 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const mapStateToPropsRef = (state: AppState) => ({
+  objects: state.referee.objects,
+  objectIds: state.referee.objectIds
+})
 
-export default <T extends MetaInfo>(props: ObjectState<T>) => {
-    const classes = useStyles();
+const mapStateToPropsTeam = (state: AppState) => ({
+  objects: state.team.objects,
+  objectIds: state.referee.objectIds
+})
+
+const objectList = <T extends MetaInfo>(props: ObjectState<T>) => {
+    
+  const classes = useStyles();
 
     return (
         <List className={classes.root}>
@@ -29,3 +41,6 @@ export default <T extends MetaInfo>(props: ObjectState<T>) => {
         </List>
     );
 }
+
+export const RefereeList = connect(mapStateToPropsRef)(objectList) 
+export const TeamList = connect(mapStateToPropsTeam)(objectList) 
