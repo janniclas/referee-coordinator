@@ -1,4 +1,5 @@
 import { MetaInfo } from "../store/objectReducer";
+import { Team } from "./team";
 
 export const GAME = "GAME_IDENT";
 
@@ -8,8 +9,8 @@ export interface GameState {
 }
 
 export interface Game extends MetaInfo {
-    home: string,
-    visitor: string,
+    home: Team,
+    visitor: Team,
     location: string,
     time: number
 }

@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { addObject, ObjectAction } from '../../store/objectActions';
-import { Game, GAME } from '../../types/game';
+import { Team, TEAM } from '../../types/team';
 import TextInput from '../TextInput';
 
 
@@ -20,47 +20,44 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface GameInputProps {
-  saveGame: (game: Game) => ObjectAction<Game>
+interface TeamInputProps {
+  saveTeam: (team: Team) => ObjectAction<Team>
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    saveGame: (game: Game) => dispatch(addObject<Game>(game))
+    saveTeam: (team: Team) => dispatch(addObject<Team>(team))
   }
 }
 
-const emptyGame = {
-    visitor: '',
-    home: '',
+const emptyTeam = {
+    name: '',
     id: 'tmp',
-    type: GAME,
-    location: '',
-    time: 0
+    type: TEAM
 };
 
-const GameInput = (props: GameInputProps) => {
+const TeamInput = (props: TeamInputProps) => {
 
   const classes = useStyles();
 
-  const [Game, setGame] = React.useState<Game>(
-    emptyGame
+  const [team, setTeam] = React.useState<Team>(
+    emptyTeam
   );
 
-  const handleNameChange = (name: string) => {
-   
+  const handleNameChange = (newName: string) => {
+    setTeam(Object.assign({...team}, {name: newName}));
   }
 
   const submit = () => {
     //TODO: this should be improved
-    Game.id = '' + Math.random();
-    props.saveGame(Game);
-    setGame(emptyGame);
+    team.id = '' + Math.random();
+    props.saveTeam(team);
+    setTeam(emptyTeam);
   }
 
   return (
     <form className={classes.container} noValidate autoComplete='off'>
-      <TextInput value={''} handleTextChange={handleNameChange} title={'Team Name'}></TextInput>
+      <TextInput value={team.name} handleTextChange={handleNameChange} title={'Team Name'}></TextInput>
       <Button variant="contained" className={classes.button} onClick={submit}>
         Add
       </Button>
@@ -68,4 +65,4 @@ const GameInput = (props: GameInputProps) => {
   );
 }
 
-export default connect(null, mapDispatchToProps) (GameInput);
+export default connect(null, mapDispatchToProps) (TeamInput);

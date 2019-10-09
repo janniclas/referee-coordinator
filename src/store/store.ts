@@ -4,6 +4,7 @@ import { objectReducer, MetaInfo } from './objectReducer'
 import { ObjectAction } from './objectActions';
 import { Referee, REF } from '../types/referee';
 import { Game, GAME } from '../types/game';
+import { Team, TEAM } from '../types/team';
 
 const createWrappedObjectReducer = <T extends MetaInfo>(actionPredicate: (action: ObjectAction<T>) => boolean) => {
   return (state: any, action: ObjectAction<T>) => {
@@ -21,7 +22,8 @@ const hasPayloadWithType = (ident: string) => <T extends MetaInfo>(action: Objec
 
 export const rootReducer = combineReducers({
     referee: createWrappedObjectReducer<Referee>(hasPayloadWithType(REF)),
-    game: createWrappedObjectReducer<Game>(hasPayloadWithType(GAME))
+    game: createWrappedObjectReducer<Game>(hasPayloadWithType(GAME)),
+    team: createWrappedObjectReducer<Team>(hasPayloadWithType(TEAM))
   })
   
 export type AppState = ReturnType<typeof rootReducer>

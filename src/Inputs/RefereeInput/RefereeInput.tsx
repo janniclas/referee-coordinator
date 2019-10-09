@@ -45,12 +45,12 @@ const RefereeInput = (props: RefInputProps) => {
     emptyRef
   );
 
-  const handleNameChange = (name: string) => {
-    setRef({id: ref.id, name: name, level: ref.level, type: ref.type});
+  const handleNameChange = (newName: string) => {
+    setRef(Object.assign({...ref}, {name: newName}));
   }
 
-  const handleLevelChange = (level: Level) => {
-    setRef({id: ref.id, name: ref.name, level: level, type: ref.type});
+  const handleLevelChange = (newLevel: Level) => {
+    setRef(Object.assign({...ref}, {level: newLevel}));
   }
 
   const submit = () => {
