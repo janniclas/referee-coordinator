@@ -8,6 +8,7 @@ import { Referee } from './types/referee';
 import GameInput from './Inputs/TeamInput/TeamInput';
 import { Team } from './types/team';
 import { RefereeList, TeamList } from './ObjectList/ObjectList';
+import ObjectForm from './ObjectForm/ObjectForm';
 
 interface AppProps {
   referees: ObjectState<Referee>
@@ -25,6 +26,7 @@ const App: React.FC<AppProps> = (props: AppProps) => {
       <RefereeList/>
       <GameInput></GameInput>
       <TeamList/>
+      <ObjectForm/>
     </div>
   );
 }
