@@ -3,10 +3,10 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import LevelInput from './LevelInput';
 import TextInput from './../TextInput';
 import { Button } from '@material-ui/core';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { addObject, ObjectAction } from '../../store/objectActions';
 import { Referee, Level, REF } from '../../types/referee';
+import { ObjFormProps, mapObjDispatchToProps } from '../ObjectForm';
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,16 +20,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface RefInputProps {
-  saveRef: (ref: Referee) => ObjectAction<Referee>
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    saveRef: (ref: Referee) => dispatch(addObject<Referee>(ref))
-  }
-}
-
 const emptyRef = {
   id: 'tmp',
   name: '',
@@ -37,7 +27,7 @@ const emptyRef = {
   type: REF
 };
 
-const RefereeInput = (props: RefInputProps) => {
+const RefereeInput = (props: ObjFormProps<Referee>) => {
 
   const classes = useStyles();
 
@@ -56,7 +46,7 @@ const RefereeInput = (props: RefInputProps) => {
   const submit = () => {
     //TODO: this should be improved
     ref.id = '' + Math.random();
-    props.saveRef(ref);
+    props.saveObj(ref);
     setRef(emptyRef);
   }
 
@@ -70,5 +60,6 @@ const RefereeInput = (props: RefInputProps) => {
     </form>
   );
 }
-const refInput = connect(null, mapDispatchToProps) (RefereeInput);
+
+const refInput = connect<{}, ObjFormProps<Referee>>(null, mapObjDispatchToProps) (RefereeInput);
 export default refInput;

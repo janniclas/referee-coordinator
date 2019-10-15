@@ -6,9 +6,17 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { rootReducer } from './store/store';
 import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
+const composeEnhancers = composeWithDevTools({
+  // options like actionSanitizer, stateSanitizer
+});
 
-export const store = createStore(rootReducer);
+export const store = createStore(
+  rootReducer,
+  composeEnhancers()
+  );
+
 
 ReactDOM.render(  
     <Provider store={store}>

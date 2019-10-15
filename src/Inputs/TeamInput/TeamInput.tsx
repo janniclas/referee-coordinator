@@ -1,11 +1,10 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { addObject, ObjectAction } from '../../store/objectActions';
 import { Team, TEAM } from '../../types/team';
 import TextInput from '../TextInput';
+import { ObjFormProps, mapObjDispatchToProps } from '../ObjectForm';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,23 +19,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface TeamInputProps {
-  saveTeam: (team: Team) => ObjectAction<Team>
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    saveTeam: (team: Team) => dispatch(addObject<Team>(team))
-  }
-}
-
 const emptyTeam = {
     name: '',
     id: 'tmp',
     type: TEAM
 };
 
-const TeamInput = (props: TeamInputProps) => {
+const TeamInput = (props: ObjFormProps<Team>) => {
 
   const classes = useStyles();
 
@@ -51,7 +40,7 @@ const TeamInput = (props: TeamInputProps) => {
   const submit = () => {
     //TODO: this should be improved
     team.id = '' + Math.random();
-    props.saveTeam(team);
+    props.saveObj(team);
     setTeam(emptyTeam);
   }
 
@@ -65,4 +54,4 @@ const TeamInput = (props: TeamInputProps) => {
   );
 }
 
-export default connect(null, mapDispatchToProps) (TeamInput);
+export default connect<{}, ObjFormProps<Team>>(null, mapObjDispatchToProps) (TeamInput);
