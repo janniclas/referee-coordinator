@@ -29,9 +29,12 @@ const GameTable = (prop: {games: ObjectState<Game>}) => {
     const classes = useStyles();
 
     
-    const [, drop] = useDrop<ObjectTypes, any, any>({
+    const [{ isOver }, drop] = useDrop<ObjectTypes, any, any>({
         accept: Object.values(ObjectType),
         drop: (item) => moveObject(item),
+        collect: monitor => ({
+			isOver: !!monitor.isOver(),
+		}),
     });
 
     return (
