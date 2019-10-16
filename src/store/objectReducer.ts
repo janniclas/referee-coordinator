@@ -7,13 +7,6 @@ export interface ObjectState<T extends ObjectTypes> {
     objectIds: Array<string>
 }
 
-
-export interface MetaInfo {
-    id: string,
-    type: string
-}
-
-
 const createInitialState = <T extends ObjectTypes>(): ObjectState<T>  => {
     return {
         objects: {},
@@ -52,4 +45,3 @@ export function objectReducer<T extends ObjectTypes> (state = createInitialState
     }
 
   }
-

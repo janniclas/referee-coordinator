@@ -1,4 +1,4 @@
-import { MetaInfo } from "../store/objectReducer";
+import { MetaInfo } from "./types";
 
 export const REF = "REF_IDENT";
 export enum Level {

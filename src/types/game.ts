@@ -1,4 +1,4 @@
-import { MetaInfo } from "../store/objectReducer";
+import { MetaInfo } from "./types";
 import { Team } from "./team";
 
 export const GAME = "GAME_IDENT";
