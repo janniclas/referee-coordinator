@@ -2,9 +2,10 @@ import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { Team, TEAM } from '../../types/team';
+import { Team } from '../../types/team';
 import TextInput from '../TextInput';
 import { ObjFormProps, mapObjDispatchToProps } from '../ObjectForm';
+import { ObjectType } from '../../types/types';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const emptyTeam = {
     name: '',
     id: 'tmp',
-    type: TEAM
+    type: ObjectType.TEAM
 };
 
 const TeamInput = (props: ObjFormProps<Team>) => {

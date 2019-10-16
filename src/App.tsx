@@ -8,7 +8,9 @@ import { Referee } from './types/referee';
 import TeamInput from './Inputs/TeamInput/TeamInput';
 import { Team } from './types/team';
 import { RefereeList, TeamList } from './ObjectList/ObjectList';
-
+import GameTable from './Games/GameTable';
+import { DndProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 interface AppProps {
   referees: ObjectState<Referee>
@@ -22,10 +24,13 @@ const mapStateToProps = (state: AppState) => ({
 const App: React.FC<AppProps> = (props: AppProps) => {
   return (
     <div className="App">
-      <RefereeInput></RefereeInput>
-      <RefereeList/>
-      <TeamInput></TeamInput>
-      <TeamList/>
+      <DndProvider backend={HTML5Backend}>
+        <RefereeInput/>
+        <RefereeList/>
+        <TeamInput/>
+        <TeamList/>
+        <GameTable/>
+      </DndProvider>
     </div>
   );
 }

@@ -4,8 +4,9 @@ import LevelInput from './LevelInput';
 import TextInput from './../TextInput';
 import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { Referee, Level, REF } from '../../types/referee';
+import { Referee, Level } from '../../types/referee';
 import { ObjFormProps, mapObjDispatchToProps } from '../ObjectForm';
+import { ObjectType } from '../../types/types';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,7 +25,7 @@ const emptyRef = {
   id: 'tmp',
   name: '',
   level: Level.R1,
-  type: REF
+  type: ObjectType.REF
 };
 
 const RefereeInput = (props: ObjFormProps<Referee>) => {

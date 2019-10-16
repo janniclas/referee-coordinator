@@ -1,8 +1,6 @@
 import { MetaInfo } from "./types";
 import { Team } from "./team";
 
-export const GAME = "GAME_IDENT";
-
 export interface GameState {
   games: {[id: string] : Game},
   gameIds: Array<string>
