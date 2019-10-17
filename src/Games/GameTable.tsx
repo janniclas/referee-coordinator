@@ -4,8 +4,7 @@ import { Game } from '../types/game';
 import { ObjectState } from '../store/objectReducer';
 import { AppState } from '../store/store';
 import { connect } from 'react-redux';
-import { ObjectType, ObjectTypes } from '../types/types';
-import { useDrop } from 'react-dnd';
+import { ObjectType } from '../types/types';
 import TableHeader from './TableHeader';
 
 const useStyles = makeStyles({
