@@ -22,11 +22,6 @@ const mapStateToProps = (state: AppState) => ({
     games: state.game
 });
 
-const moveObject = (item: ObjectTypes) => {
-    console.log('moved object', item);
-};
-
-
 const headerCells: Array<{title: string, type?: ObjectType}> = [
     {title: 'Time'}, 
     {title: 'Home', type: ObjectType.TEAM},
@@ -36,16 +31,6 @@ const headerCells: Array<{title: string, type?: ObjectType}> = [
 
 const GameTable = (props: {games: ObjectState<Game>}) => {
     const classes = useStyles();
-
-    
-    const [{ isOver }, drop] = useDrop<ObjectTypes, any, any>({
-        accept: Object.values(ObjectType),
-        drop: (item) => moveObject(item),
-        canDrop: () => true,
-        collect: monitor => ({
-			isOver: !!monitor.isOver(),
-		}),
-    });
 
     return (
     <div>
