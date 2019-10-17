@@ -1,9 +1,6 @@
 import React from 'react';
 import { makeStyles, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 import { Game } from '../types/game';
-import { ObjectState } from '../store/objectReducer';
-import { AppState } from '../store/store';
-import { connect } from 'react-redux';
 import { ObjectType } from '../types/types';
 import TableHeader from './TableHeader';
 
@@ -17,48 +14,43 @@ const useStyles = makeStyles({
     },
 });
 
-const mapStateToProps = (state: AppState) => ({
-    games: state.game
-});
-
 const headerCells: Array<{title: string, type?: ObjectType}> = [
     {title: 'Time'}, 
     {title: 'Home', type: ObjectType.TEAM},
     {title: 'Visitor', type: ObjectType.TEAM},
     {title: 'Location'}, 
-    {title: 'Refs', type: ObjectType.REF}];
+    {title: 'Refs', type: ObjectType.REF}
+];
 
-const GameTable = (props: {games: ObjectState<Game>}) => {
+const GameTable = (props: {games: Array<Game>}) => {
     const classes = useStyles();
 
     return (
-    <div>
-        <Paper className={classes.root}>
+    <Paper className={classes.root}>
         <Table className={classes.table} aria-label="simple table">
             <TableHead>
             <TableRow>
                 {headerCells.map((header) => (
-                    <TableHeader type={header.type}>{header.title}</TableHeader>
+                    <TableHeader key={header.title} type={header.type}>{header.title}</TableHeader>
                 ))}
             </TableRow>
             </TableHead>
             <TableBody>
-            {props.games.objectIds.map(id => (
-                <TableRow key={id}>
+            {props.games.map(game => (
+                <TableRow key={game.id}>
                 <TableCell>
-                    {props.games.objects[id].time}
+                    {game.time}
                 </TableCell>
-                <TableCell >{props.games.objects[id].home}</TableCell>
-                <TableCell >{props.games.objects[id].visitor}</TableCell>
-                <TableCell >{props.games.objects[id].location}</TableCell>
-                <TableCell >{props.games.objects[id].refs}</TableCell>
+                <TableCell>{game.home}</TableCell>
+                <TableCell>{game.visitor}</TableCell>
+                <TableCell>{game.location}</TableCell>
+                <TableCell>{game.refs}</TableCell>
                 </TableRow>
             ))}
             </TableBody>
         </Table>
-        </Paper>
-    </div>
+    </Paper>
     );
 }
 
-export default connect(mapStateToProps)(GameTable);
+export default GameTable;

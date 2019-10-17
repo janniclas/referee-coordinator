@@ -27,7 +27,7 @@ const TableHeader = (props: {type?: ObjectType, children: string}) => {
     };
 
     const canDropObj = (item: ObjectTypes) => {
-        return props.type ? props.type == item.type : false;
+        return props.type ? props.type === item.type : false;
     }
     
     const [{ isOver, canDrop }, drop] = useDrop<ObjectTypes, any, any>({

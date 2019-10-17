@@ -2,7 +2,6 @@ import { ObjectTypes } from "../types/types"
 import { ObjectAction, addObject } from "../store/objectActions"
 import { Dispatch } from "redux"
 
-
 export interface ObjFormProps<T extends ObjectTypes> {
   saveObj: (obj: T) => ObjectAction<T>
 }

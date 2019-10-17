@@ -1,7 +1,7 @@
 
 import {combineReducers} from 'redux'
 import { objectReducer, ObjectState } from './objectReducer'
-import { ObjectAction } from './objectActions';
+import { ObjectAction, BATCH } from './objectActions';
 import { Referee } from '../types/referee';
 import { Game } from '../types/game';
 import { Team } from '../types/team';
@@ -15,8 +15,15 @@ const createWrappedObjectReducer = <T extends ObjectTypes>(actionPredicate: (act
   }
 }
 const hasPayloadWithType = (ident: string) => <T extends ObjectTypes>(action: ObjectAction<T>): boolean => {
-  if (action.payload !== undefined && action.payload != null && action.payload.type !== undefined && action.payload != null) {
-    return action.payload.type === ident;
+
+  if (action.payload !== undefined && action.payload != null) {
+      if( action.type != BATCH) {
+        return action.payload.type === ident;
+      } else {
+        if( action.payload.length > 0) {
+          return action.payload[0].type === ident;
+        }
+      }
   }
   return false;
 }
