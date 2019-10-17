@@ -2,7 +2,6 @@ import React from 'react';
 import { Typography, Grid, Slider, Input, makeStyles } from '@material-ui/core';
 
 
-
 const useStyles = makeStyles({
     root: {
       width: 250,

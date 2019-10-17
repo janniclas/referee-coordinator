@@ -17,7 +17,7 @@ const createWrappedObjectReducer = <T extends ObjectTypes>(actionPredicate: (act
 const hasPayloadWithType = (ident: string) => <T extends ObjectTypes>(action: ObjectAction<T>): boolean => {
 
   if (action.payload !== undefined && action.payload != null) {
-      if( action.type != BATCH) {
+      if( action.type !== BATCH) {
         return action.payload.type === ident;
       } else {
         if( action.payload.length > 0) {

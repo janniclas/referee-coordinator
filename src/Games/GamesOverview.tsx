@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NumberOfGamesSelector from './NumberOfGames';
 import GameTable from './GameTable';
 import { AppState } from '../store/store';
@@ -20,34 +20,45 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     }
 }
 
+const getEmptyGames = (count: number) => {
+    const newGames = [];
+    for (let i = 0; i < count; i++) {
+        const id = '' + Math.random();
+        newGames.push({
+            id: id,
+            type: ObjectType.GAME
+        });
+    }
+    return newGames;
+}
 const START_NUMBER_OF_GAMES = 4;
 const GameOverview = (props: ObjectState<Game> & {addGames: (games: Array<Game>)=> ObjectAction<Game>}) => {
 
-    const startGameNumber = START_NUMBER_OF_GAMES < props.objectIds.length ? props.objectIds.length: START_NUMBER_OF_GAMES;
-    
+
+    const [emptyGames, setEmptyGames] = useState(getEmptyGames(START_NUMBER_OF_GAMES));
+    const startGameNumber = emptyGames.length < props.objectIds.length ? props.objectIds.length: emptyGames.length;
+
     const handleChange = (value: number) => {
+
         if (value < props.objectIds.length) {
             value = props.objectIds.length;
         } else if (value > 100) {
             value = 100;
         }
+        
         const noOfGamesToAdd = value - props.objectIds.length;
+
         if (noOfGamesToAdd > 0) {
-            const newGames = [];
-            for (let i = 0; i < noOfGamesToAdd; i++) {
-                const id = '' + Math.random();
-                newGames.push({
-                    id: id,
-                    type: ObjectType.GAME
-                });
-            }
-            props.addGames(newGames);
+            setEmptyGames(getEmptyGames(noOfGamesToAdd));
         }
     }
+
+    const games = [...Object.values(props.objects), ...emptyGames];
+
     return (
         <div>
             <NumberOfGamesSelector value={startGameNumber} handleChange={handleChange} min={props.objectIds.length}/>
-            <GameTable games={Object.values(props.objects)}/>
+            <GameTable games={games}/>
         </div>
     );
 }
