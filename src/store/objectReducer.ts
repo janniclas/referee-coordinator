@@ -1,6 +1,5 @@
 import { ObjectAction, ADD, DELETE, EDIT, BATCH } from './objectActions';
 import { ObjectTypes } from '../types/types';
-import { Game } from '../types/game';
 
 
 export interface ObjectState<T extends ObjectTypes> {
@@ -15,17 +14,17 @@ const createInitialState = <T extends ObjectTypes>(): ObjectState<T>  => {
     }
 }
 
-const isComplete = (game: Game) => {
-    return game.home != undefined && game.location != undefined 
-            && game.visitor != undefined && game.time != undefined 
-            && game.refs != undefined;
-}
+// const isEmpty = (game: Game) => {
+//     return game.home == undefined && game.location == undefined 
+//             && game.visitor == undefined && game.time == undefined 
+//             && game.refs == undefined;
+// }
 
-export const getCompleteGames = (state: ObjectState<Game>) => {
-    return state.objectIds.filter((id) =>
-        isComplete(state.objects[id])
-    );
-}
+// export const getEmptyGames = (state: ObjectState<Game>) => {
+//     return state.objectIds.filter((id) =>
+//         isEmpty(state.objects[id])
+//     );
+// }
 
 export function objectReducer<T extends ObjectTypes> (state = createInitialState<T>(), action: ObjectAction<T>): ObjectState<T> {
     const copiedObjects = Object.assign({}, state.objects);
