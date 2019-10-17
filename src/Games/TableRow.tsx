@@ -35,7 +35,7 @@ const MyTableRow = (props: {game: Game}) => {
             <MyTableCell type={ObjectType.TEAM} moveObject={moveObject}>{getTeamDisplay(props.game.home)}</MyTableCell>
             <MyTableCell type={ObjectType.TEAM} moveObject={moveObject}>{getTeamDisplay(props.game.visitor)}</MyTableCell>
             <TableCell>{props.game.location}</TableCell>
-            <MyTableCell type={ObjectType.TEAM} moveObject={moveObject}>{getRefDisplay(props.game.refs)}</MyTableCell>
+            <MyTableCell type={ObjectType.REF} moveObject={moveObject}>{getRefDisplay(props.game.refs)}</MyTableCell>
         </TableRow>
     );
 }
