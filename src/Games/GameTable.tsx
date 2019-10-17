@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 import { Game } from '../types/game';
 import { ObjectType } from '../types/types';
-import TableHeader from './TableHeader';
+import MyTableRow from './TableRow';
 
 const useStyles = makeStyles({
     root: {
@@ -31,21 +31,13 @@ const GameTable = (props: {games: Array<Game>}) => {
             <TableHead>
             <TableRow>
                 {headerCells.map((header) => (
-                    <TableHeader key={header.title} type={header.type}>{header.title}</TableHeader>
+                    <TableCell key={header.title}>{header.title}</TableCell>
                 ))}
             </TableRow>
             </TableHead>
             <TableBody>
             {props.games.map(game => (
-                <TableRow key={game.id}>
-                <TableCell>
-                    {game.time}
-                </TableCell>
-                <TableCell>{game.home}</TableCell>
-                <TableCell>{game.visitor}</TableCell>
-                <TableCell>{game.location}</TableCell>
-                <TableCell>{game.refs}</TableCell>
-                </TableRow>
+                <MyTableRow key={game.id} game={game}></MyTableRow>
             ))}
             </TableBody>
         </Table>

@@ -16,15 +16,9 @@ const useStyles = makeStyles({
 });
 
 
-const TableHeader = (props: {type?: ObjectType, children: string}) => {
+const MyTableCell = (props: {type?: ObjectType, children?: string, moveObject: (item: ObjectTypes) => void}) => {
     
     const classes = useStyles();
-
-    const moveObject = (item: ObjectTypes) => {
-        console.log('moved object', item);
-        //TODO: emit dropped event to update / create game depending on drop location and game state
-        // if there is no game create game and add item
-    };
 
     const canDropObj = (item: ObjectTypes) => {
         return props.type ? props.type === item.type : false;
@@ -32,7 +26,7 @@ const TableHeader = (props: {type?: ObjectType, children: string}) => {
     
     const [{ isOver, canDrop }, drop] = useDrop<ObjectTypes, any, any>({
         accept: Object.values(ObjectType),
-        drop: (item) => moveObject(item),
+        drop: (item) => props.moveObject(item),
         canDrop: (item) => canDropObj(item),
         collect: monitor => ({
             isOver: !!monitor.isOver(),
@@ -43,8 +37,8 @@ const TableHeader = (props: {type?: ObjectType, children: string}) => {
 
     const styleToUse = props.type && isOver ? (canDrop ? classes.canDrop : classes.cantDrop): classes.normal
     return (
-        <TableCell className={styleToUse} ref={drop}>{props.children}</TableCell>
+        <TableCell className={styleToUse} ref={drop}>{props.children ? props.children: ''}</TableCell>
     );
 }
 
-export default TableHeader;
+export default MyTableCell;
