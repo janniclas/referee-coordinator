@@ -17,17 +17,14 @@ const NumberOfGamesSelector = (props: {value: number, min: number, handleChange:
     const [sliderValue, setSliderValue] = useState(props.value);
 
     const handleSliderChange = (event: React.ChangeEvent<{}>, newValue: unknown) => {
-      console.log('slider changed');
         setSliderValue(newValue as number);
     };
 
     const sliderChangeCommitted = (event: React.ChangeEvent<{}>, newValue: number | number[]) => {
-      console.log('slider commited event', newValue);
       props.handleChange(newValue as number);
     }
   
     const handleInputChange =  (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-      console.log('input changed', event.target.value);
       setSliderValue(event.target.value === '' ? 0 : Number(event.target.value));
       props.handleChange(event.target.value === '' ? 0 : Number(event.target.value));
     };
