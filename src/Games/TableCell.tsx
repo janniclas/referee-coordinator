@@ -42,9 +42,6 @@ const MyTableCell = (props: {type?: {objType: ObjectType, cellType: cellTypes}, 
     return (
         <TableCell className={styleToUse} ref={drop}>{props.children ? props.children: ''}</TableCell>
     );
-
-    
-
 }
 
 export default MyTableCell;

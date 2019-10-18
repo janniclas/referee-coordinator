@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import NumberOfGamesSelector from './NumberOfGames';
 import GameTable from './GameTable';
 import { AppState } from '../store/store';
@@ -35,8 +35,8 @@ const START_NUMBER_OF_GAMES = 4;
 const GameOverview = (props: ObjectState<Game> & {addGames: (games: Array<Game>)=> ObjectAction<Game>}) => {
 
 
-    const [emptyGames, setEmptyGames] = useState(getEmptyGames(START_NUMBER_OF_GAMES));
-    const startGameNumber = emptyGames.length < props.objectIds.length ? props.objectIds.length: emptyGames.length;
+   // const [emptyGames, setEmptyGames] = useState(getEmptyGames(START_NUMBER_OF_GAMES));
+    const startGameNumber = START_NUMBER_OF_GAMES < props.objectIds.length ? props.objectIds.length: START_NUMBER_OF_GAMES;
 
     const handleChange = (value: number) => {
 
@@ -49,11 +49,12 @@ const GameOverview = (props: ObjectState<Game> & {addGames: (games: Array<Game>)
         const noOfGamesToAdd = value - props.objectIds.length;
 
         if (noOfGamesToAdd > 0) {
-            setEmptyGames(getEmptyGames(noOfGamesToAdd));
+            //setEmptyGames(getEmptyGames(noOfGamesToAdd));
+            props.addGames(getEmptyGames(noOfGamesToAdd))
         }
     }
 
-    const games = [...Object.values(props.objects), ...emptyGames];
+    const games = Object.values(props.objects);
 
     return (
         <div>
