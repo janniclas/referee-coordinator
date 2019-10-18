@@ -31,7 +31,7 @@ export function objectReducer<T extends ObjectTypes> (state = createInitialState
 
     switch(action.type) {
         case ADD: 
-            copiedObjects[action.payload.id] = action.payload;
+            copiedObjects[action.payload.id] = Object.assign({}, action.payload);
             return {
                 objectIds: [...state.objectIds, action.payload.id],
                 objects: copiedObjects
@@ -39,7 +39,7 @@ export function objectReducer<T extends ObjectTypes> (state = createInitialState
         case BATCH: 
             const ids = [];
             for (const obj of action.payload) {
-                copiedObjects[obj.id] = obj;
+                copiedObjects[obj.id] = Object.assign({}, obj);  
                 ids.push(obj.id);
             }
             return {
@@ -55,7 +55,7 @@ export function objectReducer<T extends ObjectTypes> (state = createInitialState
                 objects: copiedObjects
                 };
         case EDIT: 
-            copiedObjects[action.payload.id] = action.payload;   
+            copiedObjects[action.payload.id] = Object.assign({}, action.payload);   
             return {
                 objectIds: state.objectIds,
                 objects: copiedObjects
