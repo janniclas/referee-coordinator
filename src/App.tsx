@@ -1,27 +1,20 @@
 import React from 'react';
 import './App.css';
 import RefereeInput from './Inputs/RefereeInput/RefereeInput';
-import { AppState } from './store/store';
 import { connect } from 'react-redux';
-import { ObjectState } from './store/objectReducer';
-import { Referee } from './types/referee';
 import TeamInput from './Inputs/TeamInput/TeamInput';
-import { Team } from './types/team';
 import { RefereeList, TeamList } from './ObjectList/ObjectList';
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import GameOverview from './Games/GamesOverview';
+import { mapObjDispatchToProps, ObjFormProps } from './Inputs/ObjectForm';
+import { Game } from './types/game';
+import { ObjectType } from './types/types';
 
-interface AppProps {
-  referees: ObjectState<Referee>
-  teams: ObjectState<Team>
-}
-const mapStateToProps = (state: AppState) => ({
-  referees: state.referee,
-  teams: state.team
-})
 
-const App: React.FC<AppProps> = (props: AppProps) => {
+
+const App = (props: ObjFormProps<Game>) => {
+  props.saveObj({id: '' + Math.random(), type: ObjectType.GAME})
   return (
     <div className="App">
       <DndProvider backend={HTML5Backend}>
@@ -35,4 +28,4 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   );
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(null, mapObjDispatchToProps)(App);

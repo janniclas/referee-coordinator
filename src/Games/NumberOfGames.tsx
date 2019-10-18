@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography, Grid, Slider, Input, makeStyles } from '@material-ui/core';
 
 
@@ -14,13 +14,22 @@ const useStyles = makeStyles({
 const NumberOfGamesSelector = (props: {value: number, min: number, handleChange: (value: number) => void}) => {
 
     const classes = useStyles();
-  
+    const [sliderValue, setSliderValue] = useState(props.value);
+
     const handleSliderChange = (event: React.ChangeEvent<{}>, newValue: unknown) => {
-        props.handleChange(newValue as number);
+      console.log('slider changed');
+        setSliderValue(newValue as number);
     };
+
+    const sliderChangeCommitted = (event: React.ChangeEvent<{}>, newValue: number | number[]) => {
+      console.log('slider commited event', newValue);
+      props.handleChange(newValue as number);
+    }
   
     const handleInputChange =  (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-        props.handleChange(event.target.value === '' ? 0 : Number(event.target.value));
+      console.log('input changed', event.target.value);
+      setSliderValue(event.target.value === '' ? 0 : Number(event.target.value));
+      props.handleChange(event.target.value === '' ? 0 : Number(event.target.value));
     };
   
 
@@ -32,7 +41,8 @@ const NumberOfGamesSelector = (props: {value: number, min: number, handleChange:
         <Grid container spacing={2} alignItems="center">
           <Grid item xs>
             <Slider
-              value={typeof props.value === 'number' ? props.value : 0}
+              onChangeCommitted={sliderChangeCommitted}
+              value={typeof sliderValue === 'number' ? sliderValue : 0}
               onChange={handleSliderChange}
               aria-labelledby="input-slider"
             />
@@ -40,7 +50,7 @@ const NumberOfGamesSelector = (props: {value: number, min: number, handleChange:
           <Grid item>
             <Input
               className={classes.input}
-              value={props.value}
+              value={sliderValue}
               margin="dense"
               onChange={handleInputChange}
               inputProps={{

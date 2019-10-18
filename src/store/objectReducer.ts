@@ -14,19 +14,8 @@ const createInitialState = <T extends ObjectTypes>(): ObjectState<T>  => {
     }
 }
 
-// const isEmpty = (game: Game) => {
-//     return game.home == undefined && game.location == undefined 
-//             && game.visitor == undefined && game.time == undefined 
-//             && game.refs == undefined;
-// }
-
-// export const getEmptyGames = (state: ObjectState<Game>) => {
-//     return state.objectIds.filter((id) =>
-//         isEmpty(state.objects[id])
-//     );
-// }
-
 export function objectReducer<T extends ObjectTypes> (state = createInitialState<T>(), action: ObjectAction<T>): ObjectState<T> {
+
     const copiedObjects = Object.assign({}, state.objects);
 
     switch(action.type) {
@@ -47,11 +36,15 @@ export function objectReducer<T extends ObjectTypes> (state = createInitialState
                 objects: copiedObjects
             };
         case REMOVE_BATCH: 
-            let newIds = state.objectIds;
+
+            const toRemove: Array<string> = [];
+
             for (const obj of action.payload) {
                 delete copiedObjects[obj.id];
-                newIds = state.objectIds.filter((id) => id !== obj.id);
+                toRemove.push(obj.id);
             }
+            const newIds = state.objectIds.filter((id) => !toRemove.includes(id));
+
             return {
                 objectIds: newIds,
                 objects: copiedObjects

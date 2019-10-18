@@ -6,7 +6,7 @@ import MyTableCell from './TableCell';
 import { Team } from '../types/team';
 import { Referee } from '../types/referee';
 import { Dispatch } from 'redux';
-import { editObject, addObject } from '../store/objectActions';
+import { editObject } from '../store/objectActions';
 import { connect } from 'react-redux';
 
 
@@ -24,7 +24,6 @@ const refType = {objType: ObjectType.REF, cellType: cellTypes.REFS};
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         updateGame: (game: Game) =>  dispatch(editObject<Game>(game)),
-        addGame: (game: Game) =>  dispatch(addObject<Game>(game))
     }
 }
 

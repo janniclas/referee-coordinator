@@ -2,7 +2,6 @@ import React from 'react';
 import NumberOfGamesSelector from './NumberOfGames';
 import GameTable from './GameTable';
 import { AppState } from '../store/store';
-import { ObjectState } from '../store/objectReducer';
 import { Game } from '../types/game';
 import { connect } from 'react-redux';
 import { ObjectType } from '../types/types';
@@ -10,9 +9,14 @@ import { Dispatch } from 'redux';
 import { addBatch, removeBatch } from '../store/objectActions';
 
 
-const mapStateToProps = (state: AppState) => (
-    state.game
-);
+const mapStateToProps = (state: AppState) => {
+    const games = Object.values(state.game.objects)
+    const emptyGames = getEmptyGames(games);
+    const min = games.length - emptyGames.length;
+    return {
+        games, emptyGames, min
+    }
+};
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
@@ -45,43 +49,33 @@ export const getEmptyGames = (games: Array<Game>) => {
     );
 }
 
-const START_NUMBER_OF_GAMES = 4;
-
-const GameOverview = (props: ObjectState<Game> & ReturnType<typeof mapDispatchToProps>) => {
-
-    const games = Object.values(props.objects);
-    const emptyGames = getEmptyGames(games);
-    const min = games.length - emptyGames.length;
+const GameOverview = (props: ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>) => {
 
     const handleChange = (value: number) => {
 
-        if (value < min) {
-            value = min;
+        if (value < props.min) {
+            value = props.min;
         } else if (value > 100) {
             value = 100;
         }
         
-        const noOfGamesToAdd = value - games.length;
+        const noOfGamesToAdd = value - props.games.length;
 
         if (noOfGamesToAdd > 0) {
             props.addGames(createEmptyGames(noOfGamesToAdd))
         } else {
             if(noOfGamesToAdd < 0) {
-                const noToRemove = noOfGamesToAdd * -1 > emptyGames.length ? emptyGames.length: noOfGamesToAdd * -1 ;
-                const gamesToRemove = emptyGames.splice(emptyGames.length - noToRemove, noToRemove);
+                const noToRemove = noOfGamesToAdd * -1 > props.emptyGames.length ? props.emptyGames.length: noOfGamesToAdd * -1 ;
+                const gamesToRemove = props.emptyGames.splice(props.emptyGames.length - noToRemove, noToRemove);
                 props.removeGames(gamesToRemove);
             }
         }
     }
 
-    if (props.objectIds.length < START_NUMBER_OF_GAMES) {
-        handleChange(START_NUMBER_OF_GAMES - props.objectIds.length)
-    } 
-
     return (
         <div>
-            <NumberOfGamesSelector value={games.length} handleChange={handleChange} min={min}/>
-            <GameTable games={games}/>
+            <NumberOfGamesSelector value={props.games.length} handleChange={handleChange} min={props.min}/>
+            <GameTable games={props.games}/>
         </div>
     );
 }
