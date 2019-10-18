@@ -44,7 +44,7 @@ export function addBatch<T extends ObjectTypes>(newObjects: Array<T>): ObjectAct
 
 export function editObject<T extends ObjectTypes>(editedObject: T): ObjectAction<T> {
   return {
-    type: ADD,
+    type: EDIT,
     payload: editedObject
   }
 }
