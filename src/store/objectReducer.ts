@@ -1,4 +1,4 @@
-import { ObjectAction, ADD, DELETE, EDIT, BATCH } from './objectActions';
+import { ObjectAction, ADD, DELETE, EDIT, BATCH, REMOVE_BATCH } from './objectActions';
 import { ObjectTypes } from '../types/types';
 
 
@@ -46,6 +46,16 @@ export function objectReducer<T extends ObjectTypes> (state = createInitialState
                 objectIds: [...state.objectIds, ...ids],
                 objects: copiedObjects
             };
+        case REMOVE_BATCH: 
+            let newIds = state.objectIds;
+            for (const obj of action.payload) {
+                delete copiedObjects[obj.id];
+                newIds = state.objectIds.filter((id) => id !== obj.id);
+            }
+            return {
+                objectIds: newIds,
+                objects: copiedObjects
+            }
         case DELETE: 
             delete copiedObjects[action.payload.id];
             return {

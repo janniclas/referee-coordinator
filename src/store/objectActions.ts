@@ -4,7 +4,7 @@ export const ADD = 'ADD';
 export const BATCH = 'BATCH';
 export const DELETE = 'DELETE';
 export const EDIT = 'EDIT';
-
+export const REMOVE_BATCH = 'REMOVE_BATCH';
 
 export interface AddAction<T extends ObjectTypes> {
     type: typeof ADD
@@ -13,6 +13,11 @@ export interface AddAction<T extends ObjectTypes> {
 
 export interface BatchAction<T extends ObjectTypes> {
   type: typeof BATCH
+  payload: Array<T>
+}
+
+export interface RemoveBatchAction<T extends ObjectTypes> {
+  type: typeof REMOVE_BATCH
   payload: Array<T>
 }
 
@@ -26,7 +31,7 @@ export interface EditAction<T extends ObjectTypes> {
   payload: T
 }
 
-export type ObjectAction<T extends ObjectTypes> = AddAction<T> | DeleteAction<T> | EditAction<T> | BatchAction<T>;
+export type ObjectAction<T extends ObjectTypes> = AddAction<T> | DeleteAction<T> | EditAction<T> | BatchAction<T> | RemoveBatchAction<T>;
 
 export function addObject<T extends ObjectTypes>(newObject: T): ObjectAction<T> {
     return {
@@ -38,6 +43,13 @@ export function addObject<T extends ObjectTypes>(newObject: T): ObjectAction<T> 
 export function addBatch<T extends ObjectTypes>(newObjects: Array<T>): ObjectAction<T> {
   return {
     type: BATCH,
+    payload: newObjects
+  }
+}
+
+export function removeBatch<T extends ObjectTypes>(newObjects: Array<T>): ObjectAction<T> {
+  return {
+    type: REMOVE_BATCH,
     payload: newObjects
   }
 }
