@@ -1,12 +1,13 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import LevelInput from './LevelInput';
-import NameInput from './NameInput';
+import TextInput from './../TextInput';
 import { Button } from '@material-ui/core';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { addObject, ObjectAction } from '../store/objectActions';
-import { Referee, Level } from '../types/referee';
+import { Referee, Level } from '../../types/referee';
+import { ObjFormProps, mapObjDispatchToProps } from '../ObjectForm';
+import { ObjectType } from '../../types/types';
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,24 +21,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface RefInputProps {
-  saveRef: (ref: Referee) => ObjectAction<Referee>
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    saveRef: (ref: Referee) => dispatch(addObject<Referee>(ref))
-  }
-}
-
 const emptyRef = {
   id: 'tmp',
   name: '',
   level: Level.R1,
-  type: 'ref'
+  type: ObjectType.REF
 };
 
-const RefereeInput = (props: RefInputProps) => {
+const RefereeInput = (props: ObjFormProps<Referee>) => {
 
   const classes = useStyles();
 
@@ -45,24 +36,24 @@ const RefereeInput = (props: RefInputProps) => {
     emptyRef
   );
 
-  const handleNameChange = (name: string) => {
-    setRef({id: ref.id, name: name, level: ref.level, type: ref.type});
+  const handleNameChange = (newName: string) => {
+    setRef(Object.assign({...ref}, {name: newName}));
   }
 
-  const handleLevelChange = (level: Level) => {
-    setRef({id: ref.id, name: ref.name, level: level, type: ref.type});
+  const handleLevelChange = (newLevel: Level) => {
+    setRef(Object.assign({...ref}, {level: newLevel}));
   }
 
   const submit = () => {
     //TODO: this should be improved
     ref.id = '' + Math.random();
-    props.saveRef(ref);
+    props.saveObj(ref);
     setRef(emptyRef);
   }
 
   return (
     <form className={classes.container} noValidate autoComplete='off'>
-      <NameInput handleNameChange={handleNameChange} name={ref.name}/>
+      <TextInput title={'Name'} handleTextChange={handleNameChange} value={ref.name}/>
       <LevelInput handleLevelChange={handleLevelChange} level={ref.level}/>
       <Button variant="contained" className={classes.button} onClick={submit}>
         Add
@@ -70,5 +61,6 @@ const RefereeInput = (props: RefInputProps) => {
     </form>
   );
 }
-const refInput = connect(null, mapDispatchToProps) (RefereeInput);
+
+const refInput = connect<{}, ObjFormProps<Referee>>(null, mapObjDispatchToProps) (RefereeInput);
 export default refInput;

@@ -1,24 +1,36 @@
 import React from 'react';
 import './App.css';
-import RefereeInput from './RefereeInput/RefereeInput';
+import RefereeInput from './Inputs/RefereeInput/RefereeInput';
 import { AppState } from './store/store';
 import { connect } from 'react-redux';
-import RefereeList from './RefereeList/RefereeList';
 import { ObjectState } from './store/objectReducer';
 import { Referee } from './types/referee';
+import TeamInput from './Inputs/TeamInput/TeamInput';
+import { Team } from './types/team';
+import { RefereeList, TeamList } from './ObjectList/ObjectList';
+import { DndProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+import GameOverview from './Games/GamesOverview';
 
 interface AppProps {
   referees: ObjectState<Referee>
+  teams: ObjectState<Team>
 }
 const mapStateToProps = (state: AppState) => ({
-  referees: state.referee
+  referees: state.referee,
+  teams: state.team
 })
 
-const App: React.FC<AppProps> = () => {
+const App: React.FC<AppProps> = (props: AppProps) => {
   return (
     <div className="App">
-      <RefereeInput></RefereeInput>
-      <RefereeList></RefereeList>
+      <DndProvider backend={HTML5Backend}>
+        <RefereeInput/>
+        <RefereeList/>
+        <TeamInput/>
+        <TeamList/>
+        <GameOverview/>
+      </DndProvider>
     </div>
   );
 }

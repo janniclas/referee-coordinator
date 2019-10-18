@@ -12,22 +12,22 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const NameInput = (props: {handleNameChange?: (name: string) => void, name: string}) => {
+const TextInput = (props: {title: string, handleTextChange?: (value: string) => void, value: string}) => {
 
   const classes = useStyles();
 
   const handleChangeText = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(props.handleNameChange)
-     props.handleNameChange(event.target.value);
+    if(props.handleTextChange)
+     props.handleTextChange(event.target.value);
   };
 
   return (
-    props.handleNameChange ?
+    props.handleTextChange ?
       <TextField
         id='outlined-name'
-        label='Name'
+        label={props.title}
         className={classes.textField}
-        value={props.name}
+        value={props.value}
         onChange={handleChangeText}
         margin='normal'
         variant='outlined'
@@ -36,13 +36,13 @@ const NameInput = (props: {handleNameChange?: (name: string) => void, name: stri
       <TextField
       disabled
       id='outlined-name'
-      label='Name'
+      label={props.title}
       className={classes.textField}
-      value={props.name}
+      value={props.value}
       margin='normal'
       variant='outlined'
     />
     ); 
 }
 
-export default NameInput;
+export default TextInput;

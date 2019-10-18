@@ -1,4 +1,4 @@
-import { MetaInfo } from "../store/objectReducer";
+import { MetaInfo } from "./types";
 
 export enum Level {
     R1 = 'R1',
