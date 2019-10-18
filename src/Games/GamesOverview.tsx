@@ -34,8 +34,6 @@ const getEmptyGames = (count: number) => {
 const START_NUMBER_OF_GAMES = 4;
 const GameOverview = (props: ObjectState<Game> & {addGames: (games: Array<Game>)=> ObjectAction<Game>}) => {
 
-
-   // const [emptyGames, setEmptyGames] = useState(getEmptyGames(START_NUMBER_OF_GAMES));
     const startGameNumber = START_NUMBER_OF_GAMES < props.objectIds.length ? props.objectIds.length: START_NUMBER_OF_GAMES;
 
     const handleChange = (value: number) => {
@@ -47,9 +45,7 @@ const GameOverview = (props: ObjectState<Game> & {addGames: (games: Array<Game>)
         }
         
         const noOfGamesToAdd = value - props.objectIds.length;
-
         if (noOfGamesToAdd > 0) {
-            //setEmptyGames(getEmptyGames(noOfGamesToAdd));
             props.addGames(getEmptyGames(noOfGamesToAdd))
         }
     }
