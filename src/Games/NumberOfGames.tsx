@@ -40,6 +40,7 @@ const NumberOfGamesSelector = (props: {value: number, min: number, handleChange:
             <Slider
               onChangeCommitted={sliderChangeCommitted}
               value={typeof sliderValue === 'number' ? sliderValue : 0}
+              min={props.min}
               onChange={handleSliderChange}
               aria-labelledby="input-slider"
             />
