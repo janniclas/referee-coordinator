@@ -38,15 +38,15 @@ const TeamInput = (props: ObjFormProps<Team>) => {
     setTeam(Object.assign({...team}, {name: newName}));
   }
 
-  const submit = () => {
-    //TODO: this should be improved
+  const submit = (event: any) => {
+    event.preventDefault();
     team.id = '' + Math.random();
     props.saveObj(team);
     setTeam(emptyTeam);
   }
 
   return (
-    <form className={classes.container} noValidate autoComplete='off'>
+    <form className={classes.container} noValidate autoComplete='off' onSubmit={submit}>
       <TextInput value={team.name} handleTextChange={handleNameChange} title={'Team Name'}></TextInput>
       <Button variant="contained" className={classes.button} onClick={submit}>
         Add

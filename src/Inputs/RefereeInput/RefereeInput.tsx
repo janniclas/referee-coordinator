@@ -44,7 +44,8 @@ const RefereeInput = (props: ObjFormProps<Referee>) => {
     setRef(Object.assign({...ref}, {level: newLevel}));
   }
 
-  const submit = () => {
+  const submit = (event: any) => {
+    event.preventDefault();
     //TODO: this should be improved
     ref.id = '' + Math.random();
     props.saveObj(ref);
@@ -52,7 +53,7 @@ const RefereeInput = (props: ObjFormProps<Referee>) => {
   }
 
   return (
-    <form className={classes.container} noValidate autoComplete='off'>
+    <form className={classes.container} noValidate autoComplete='off' onSubmit={submit}>
       <TextInput title={'Name'} handleTextChange={handleNameChange} value={ref.name}/>
       <LevelInput handleLevelChange={handleLevelChange} level={ref.level}/>
       <Button variant="contained" className={classes.button} onClick={submit}>
